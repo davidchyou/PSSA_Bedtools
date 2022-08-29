@@ -35,6 +35,8 @@ Log sequence ratios of all two-drug initiation sequences of all drugs in the dat
 
 To avoid dividing-by-zero or computing log(0), observed n(AB) and n(BA) were both incremented by 1 (i.e. a pseudocount) when computing log sequence ratios and the standard errors, but the original n(AB) and n(BA) is included in the output.
 
+Note that we can perform PSSA end-to-end as a "Linux one-liner", in one single (although long) Linux command!
+
 **Output**
 
 The output is a tab-delimited table showing (from left to right) the following:
