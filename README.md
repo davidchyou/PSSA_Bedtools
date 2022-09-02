@@ -4,7 +4,7 @@
 
 Detecting adverse drug reactions (ADR) is very important in minimising drug-related harms especially in older individuals aged 65 years and above. In the Big-Data era, many computational algorithms had been developed to predict ADR of the various drugs. The prescription sequence-symmetry analysis algorithm, [PSSA](https://www.jstor.org/stable/pdf/3702146.pdf), is a very powerful and computationally simple algorithm to predict ADR, and is scalable to big, national level healthcare dataset with more than 1 billion rows of data. It requires only minimal amount of data: prescription dates and drugs prescribed, grouped by individuals, and we only need prescription dataset. The idea is that if drug A causes medical condition X, and X can be treated with drug B, then, the number of prescription sequence A -> B is expected to be greater than the number of prescription sequence B -> A. The statistical quantity "sequence ratio" (SR), n(AB)/n(BA), is the main ADR predictor in PSSA, although log(SR) is preferred because the standard error of it is easy to compute. 
 
-To avoid confounding, the principle of "new user design" applies and we only consider first-time prescriptions of all drugs of interests. The prescription dataset is therefore processed into a "drug-initiation dataset". For each individual, first-time prescription of every drug the individual was used was extracted. To mitigate confounding further, sequence A -> B are two-drug sequences, where drug B is the next drug initiated after initiating drug A, and no additional drugs were initiated in between. Furthermore, we only count drug initiation events that are less than 100 days apart.
+To avoid confounding, the principle of "new user design" applies and we only consider first-time prescriptions of all drugs of interests. The prescription dataset is therefore processed into a "drug-initiation dataset". For each individual, first-time prescription of every drug the individual was used was extracted. To mitigate confounding further, the original PSSA algorithm was modified so that sequence A -> B are two-drug sequences, where drug B is the next drug initiated after initiating drug A, and no additional drugs were initiated in between. Furthermore, we only count drug initiation events that are less than 100 days apart.
 
 **How the genomic application Bedtools can be applied to solve this pharmacoepidemiological problem?** 
 
@@ -14,9 +14,9 @@ In genomics, each genomic features (genes, intron, exon, repeat-region etc.) are
 
 In PSSA, the BED6-formatted drug-initiation dataset looks like:
 
-    Person-1  1324  1324  Drug-A  1641  +
-    Person-2  2113  2113  Drug-B  3877  +
-    Person-3  4218  4218  Drug-C  8594  +
+    Person-1  1324  1324  Drug-A  Drug_ID_1641  +
+    Person-2  2113  2113  Drug-B  Drug_ID_3877  +
+    Person-3  4218  4218  Drug-C  Drug_ID_8594  +
     
 Because drug-initiations are one-day event, so start = end, and Bedtools allows this.
 
